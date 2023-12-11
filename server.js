@@ -4,18 +4,14 @@ const connectDB = require("./config/connectDB");
 const tourController = require("./controllers/tours");
 const userController = require("./controllers/users");
 const cookieParser = require("cookie-parser");
+const corsOptions = require("./config/corsOptions");
 const cors = require("cors");
 const requireAuth = require("./middleware/requireAuth");
 
 const app = express();
 app.use(express.json());
 app.use(cookieParser());
-app.use(
-  cors({
-    origin: true,
-    credentials: true,
-  })
-);
+app.use(cors(corsOptions));
 
 app.get("/tours", tourController.fetchNotes);
 app.get("/tour/:id", tourController.fetchNote);
